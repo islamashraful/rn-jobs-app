@@ -1,33 +1,21 @@
 import React from "react";
 import { View, Text, Pressable, Image } from "react-native";
 
-import stylesFunc from "./popularjobcard.style";
+import styles from "./nearbyjobcard.style";
 import { checkImageURL } from "@/utils";
 
 const DEFAULT_IMG_URL =
   "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg";
 
-interface PopularJob {
-  selectedJob: string;
+interface NearbyJob {
   jobId: string;
   image: string;
-  companyTitle: string;
-  position: string;
-  country: string;
+  jobTitle: string;
+  jobType: string;
   onPress?: () => void;
 }
 
-const PopularJobCard = ({
-  selectedJob,
-  jobId,
-  image,
-  companyTitle,
-  position,
-  country,
-  onPress,
-}: PopularJob) => {
-  const styles = stylesFunc(selectedJob, jobId);
-
+const NearbyJobCard = ({ image, jobTitle, jobType, onPress }: NearbyJob) => {
   return (
     <Pressable style={styles.container} onPress={onPress}>
       <Pressable style={styles.logoContainer}>
@@ -39,17 +27,15 @@ const PopularJobCard = ({
           style={styles.logoImage}
         />
       </Pressable>
-      <Text style={styles.companyName} numberOfLines={1}>
-        {companyTitle}
-      </Text>
-      <View style={styles.infoContainer}>
+
+      <View style={styles.textContainer}>
         <Text style={styles.jobName} numberOfLines={1}>
-          {position}
+          {jobTitle}
         </Text>
-        <Text style={styles.location}>{country}</Text>
+        <Text style={styles.jobType}>{jobType}</Text>
       </View>
     </Pressable>
   );
 };
 
-export default PopularJobCard;
+export default NearbyJobCard;

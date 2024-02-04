@@ -9,6 +9,7 @@ interface Job {
   employer_name: string;
   employer_logo: string;
   job_country: string;
+  job_employment_type: string;
 }
 
 interface Response<T> {

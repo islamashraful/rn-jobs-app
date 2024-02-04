@@ -42,7 +42,7 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-
+  console.log("asd");
   return (
     <Stack initialRouteName="home">
       <Stack.Screen name="home" />
