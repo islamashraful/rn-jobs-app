@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, useState } from "react";
 import {
   View,
   Text,
@@ -14,7 +14,13 @@ import { JobTypes } from "./types";
 
 const AllJobs: JobTypes[] = ["Full-Time", "Part-Time", "Contractor"];
 
-const Welcome = () => {
+interface Props {
+  searchTerm: string;
+  setSearchTerm: Dispatch<React.SetStateAction<string>>;
+  onPressSearch: () => void;
+}
+
+const Welcome = ({ searchTerm, setSearchTerm, onPressSearch }: Props) => {
   const [activeJobType, setActiveJobType] = useState<JobTypes>("Full-Time");
 
   return (
@@ -28,13 +34,13 @@ const Welcome = () => {
         <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
-            value=""
-            onChange={() => {}}
+            value={searchTerm}
+            onChangeText={(text) => setSearchTerm(text)}
             placeholder="What are you looking for?"
           />
         </View>
 
-        <Pressable style={styles.searchBtn}>
+        <Pressable style={styles.searchBtn} onPress={onPressSearch}>
           <Image
             source={icons.search}
             resizeMode="contain"

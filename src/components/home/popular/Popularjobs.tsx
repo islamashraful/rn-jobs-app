@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,6 +11,9 @@ import styles from "./popularjobs.style";
 import { COLORS, SIZES } from "@/constants";
 import PopularJobCard from "@/components/common/cards/popular/PopularJobCard";
 import useFetch from "@/hook/useFetch";
+import { useNavigation } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { AppStackParamList } from "App";
 
 const Popularjobs = () => {
   const { jobs, isLoading, error } = useFetch("search", {
@@ -18,6 +21,10 @@ const Popularjobs = () => {
     page: "1",
     num_pages: "1",
   });
+  const [selectedJob, setSelectedJob] = useState("");
+
+  const { navigate } =
+    useNavigation<StackScreenProps<AppStackParamList, "Home">["navigation"]>();
 
   return (
     <View style={styles.container}>
@@ -38,12 +45,16 @@ const Popularjobs = () => {
             data={jobs}
             renderItem={({ item }) => (
               <PopularJobCard
-                selectedJob=""
+                selectedJob={selectedJob}
                 jobId={item.job_id}
                 image={item.employer_logo}
                 companyTitle={item.employer_name}
                 position={item.job_title}
                 country={item.job_country}
+                onPress={() => {
+                  navigate("JobDetails", { jobId: item.job_id });
+                  setSelectedJob(item.job_id);
+                }}
               />
             )}
             keyExtractor={(item) => item?.job_id}

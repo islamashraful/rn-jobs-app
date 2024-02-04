@@ -27,14 +27,18 @@ const JobDetails = ({
   navigation,
   route,
 }: StackScreenProps<AppStackParamList, "JobDetails">) => {
-  const { jobs, isLoading, error } = useJobDetails({
+  const { jobs, isLoading, error, refetch } = useJobDetails({
     job_id: route.params.jobId,
   });
 
   const [refreshing, setRefershing] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
-  const onRefresh = () => {};
+  const onRefresh = useCallback(() => {
+    setRefershing(true);
+    refetch();
+    setRefershing(false);
+  }, []);
 
   const displayTabContent = () => {
     switch (activeTab) {

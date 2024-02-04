@@ -9,10 +9,12 @@ import { COLORS, icons, images } from "@/constants";
 import { ScreenHeaderBtn } from "@/components";
 import HomeScreen from "@/screens/Home";
 import JobDetails from "@/screens/JobDetails";
+import Search from "@/screens/Search";
 
 export type AppStackParamList = {
   Home: undefined;
   JobDetails: { jobId: string };
+  Search: { searchTerm: string };
 };
 
 const AppStack = createStackNavigator<AppStackParamList>();
@@ -74,6 +76,22 @@ const App = () => {
             headerRight: () => (
               <ScreenHeaderBtn iconUrl={icons.share} dimension="60%" />
             ),
+          })}
+        />
+        <AppStack.Screen
+          name="Search"
+          component={Search}
+          options={({ navigation }) => ({
+            headerStyle: { backgroundColor: COLORS.lightWhite },
+            headerShadowVisible: false,
+            headerLeft: () => (
+              <ScreenHeaderBtn
+                iconUrl={icons.left}
+                dimension="60%"
+                onPress={() => navigation.goBack()}
+              />
+            ),
+            headerTitle: "",
           })}
         />
       </AppStack.Navigator>
