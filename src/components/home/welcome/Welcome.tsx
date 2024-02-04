@@ -7,7 +7,6 @@ import {
   Image,
   FlatList,
 } from "react-native";
-import { useRouter } from "expo-router";
 import { icons, SIZES } from "@/constants";
 
 import styles, { getTabStyles } from "./welcome.style";
@@ -16,8 +15,6 @@ import { JobTypes } from "./types";
 const AllJobs: JobTypes[] = ["Full-Time", "Part-Time", "Contractor"];
 
 const Welcome = () => {
-  const router = useRouter();
-
   const [activeJobType, setActiveJobType] = useState<JobTypes>("Full-Time");
 
   return (
@@ -54,7 +51,6 @@ const Welcome = () => {
               style={getTabStyles(activeJobType, item).tab}
               onPress={() => {
                 setActiveJobType(item);
-                router.push(`/search/${item}`);
               }}
             >
               <Text style={getTabStyles(activeJobType, item).tabText}>
