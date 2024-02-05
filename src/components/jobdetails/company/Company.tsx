@@ -21,7 +21,7 @@ const Company = ({ companyLogo, jobTitle, companyName, location }: Props) => {
       <View style={styles.logoBox}>
         <Image
           source={{
-            uri: checkImageURL(companyLogo) ? companyLogo : DEFAULT_IMG_URL,
+            uri: companyLogo || DEFAULT_IMG_URL,
           }}
           style={styles.logoImage}
         />

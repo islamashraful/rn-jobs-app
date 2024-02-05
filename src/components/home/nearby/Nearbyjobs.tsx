@@ -38,7 +38,7 @@ const Nearbyjobs = () => {
             <NearbyJobCard
               key={`nearby-${item.job_id}-${item.job_employment_type}`}
               jobId={item.job_id}
-              image={item.employer_logo}
+              image={item?.employer_logo}
               jobTitle={item.job_title}
               jobType={item.job_employment_type}
               onPress={() => navigate("JobDetails", { jobId: item.job_id })}

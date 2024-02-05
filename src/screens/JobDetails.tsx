@@ -10,14 +10,7 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from "react-native";
-import {
-  Company,
-  JobAbout,
-  JobFooter,
-  JobTabs,
-  ScreenHeaderBtn,
-  Specifics,
-} from "@/components";
+import { Company, JobAbout, JobFooter, JobTabs, Specifics } from "@/components";
 import { COLORS, SIZES } from "@/constants";
 import useJobDetails from "@/hook/useJobDetails";
 

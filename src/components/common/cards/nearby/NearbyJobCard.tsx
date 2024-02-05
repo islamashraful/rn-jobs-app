@@ -24,7 +24,7 @@ const NearbyJobCard = ({ image, jobTitle, jobType, onPress }: NearbyJob) => {
       <Pressable style={styles.logoContainer}>
         <Image
           source={{
-            uri: checkImageURL(image) ? image : DEFAULT_IMG_URL,
+            uri: image || DEFAULT_IMG_URL,
           }}
           resizeMode="contain"
           style={styles.logoImage}
