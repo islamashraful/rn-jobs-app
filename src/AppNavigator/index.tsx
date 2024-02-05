@@ -4,6 +4,7 @@ import { AppStackParamList } from "./types";
 import * as Screens from "@/screens";
 import { COLORS, icons, images } from "@/constants";
 import { ScreenHeaderBtn } from "@/components";
+import { navigationOptions } from "./navigationOptions";
 
 const AppStack = createStackNavigator<AppStackParamList>();
 
@@ -15,11 +16,7 @@ const AppNavigator = () => {
           name="Home"
           component={Screens.Home}
           options={{
-            headerStyle: {
-              backgroundColor: COLORS.lightWhite,
-            },
-            headerShadowVisible: false,
-            headerTitle: "",
+            ...navigationOptions,
             headerLeft: () => (
               <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
             ),
@@ -32,10 +29,7 @@ const AppNavigator = () => {
           name="JobDetails"
           component={Screens.JobDetails}
           options={({ navigation }) => ({
-            headerStyle: { backgroundColor: COLORS.lightWhite },
-            headerShadowVisible: false,
-            headerBackTitleVisible: false,
-            headerTitle: "",
+            ...navigationOptions,
             headerLeft: () => (
               <ScreenHeaderBtn
                 iconUrl={icons.left}
@@ -52,8 +46,7 @@ const AppNavigator = () => {
           name="Search"
           component={Screens.Search}
           options={({ navigation }) => ({
-            headerStyle: { backgroundColor: COLORS.lightWhite },
-            headerShadowVisible: false,
+            ...navigationOptions,
             headerLeft: () => (
               <ScreenHeaderBtn
                 iconUrl={icons.left}
@@ -61,7 +54,6 @@ const AppNavigator = () => {
                 onPress={() => navigation.goBack()}
               />
             ),
-            headerTitle: "",
           })}
         />
       </AppStack.Navigator>
