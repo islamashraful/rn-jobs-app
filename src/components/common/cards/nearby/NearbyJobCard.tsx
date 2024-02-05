@@ -1,11 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, Text, Pressable, Image } from "react-native";
 
 import styles from "./nearbyjobcard.style";
-import { checkImageURL } from "@/utils";
-import { useNavigation } from "@react-navigation/native";
-import { StackScreenProps } from "@react-navigation/stack";
-import { AppStackParamList } from "App";
 
 const DEFAULT_IMG_URL =
   "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg";

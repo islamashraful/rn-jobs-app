@@ -1,5 +1,4 @@
 import { StackScreenProps } from "@react-navigation/stack";
-import { AppStackParamList } from "App";
 import { useCallback, useEffect, useState } from "react";
 import {
   Text,
@@ -14,6 +13,7 @@ import { COLORS, SIZES } from "@/constants";
 import useApi from "@/hook/useApi";
 import { JobDetails as IJobDetails } from "@/models/jobs";
 import jobsApi from "@/api/jobs";
+import { AppStackParamList } from "@/AppNavigator/types";
 
 const tabs = ["About", "Qualifications", "Responsibilities"];
 

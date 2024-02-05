@@ -12,10 +12,11 @@ import { COLORS, SIZES } from "@/constants";
 import PopularJobCard from "@/components/common/cards/popular/PopularJobCard";
 import { useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { AppStackParamList } from "App";
+
 import jobsApi from "@/api/jobs";
 import useApi from "@/hook/useApi";
 import { Job } from "@/models/jobs";
+import { AppStackParamList } from "@/AppNavigator/types";
 
 const Popularjobs = () => {
   const popularJobsApi = useApi<Job[]>(jobsApi.popular);

@@ -4,9 +4,9 @@ import { COLORS, SIZES } from "@/constants";
 import { Nearbyjobs, Popularjobs, Welcome } from "@/components";
 import { useState } from "react";
 import { StackScreenProps } from "@react-navigation/stack";
-import { AppStackParamList } from "App";
+import { AppStackParamList } from "@/AppNavigator/types";
 
-export default function HomeScreen({
+export default function Home({
   navigation: { navigate },
 }: StackScreenProps<AppStackParamList, "Home">) {
   const [searchTerm, setSearchTerm] = useState("");

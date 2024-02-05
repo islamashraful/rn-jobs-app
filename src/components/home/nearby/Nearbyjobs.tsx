@@ -5,11 +5,12 @@ import styles from "./nearbyjobs.style";
 import { COLORS } from "@/constants";
 import NearbyJobCard from "@/components/common/cards/nearby/NearbyJobCard";
 import { StackScreenProps } from "@react-navigation/stack";
-import { AppStackParamList } from "App";
+
 import { useNavigation } from "@react-navigation/native";
 import useApi from "@/hook/useApi";
 import { Job } from "@/models/jobs";
 import jobsApi from "@/api/jobs";
+import { AppStackParamList } from "@/AppNavigator/types";
 
 const Nearbyjobs = () => {
   const nearbyJobsApi = useApi<Job[]>(jobsApi.nearby);

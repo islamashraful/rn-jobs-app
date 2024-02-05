@@ -11,11 +11,12 @@ import { Text, SafeAreaView } from "react-native";
 import { NearbyJobCard } from "@/components";
 import { COLORS, icons, SIZES } from "@/constants";
 import styles from "@/styles/search";
-import { AppStackParamList } from "App";
+
 import { StackScreenProps } from "@react-navigation/stack";
 import jobsApi from "@/api/jobs";
 import useApi from "@/hook/useApi";
 import { Job } from "@/models/jobs";
+import { AppStackParamList } from "@/AppNavigator/types";
 
 const Search = ({
   route: {
