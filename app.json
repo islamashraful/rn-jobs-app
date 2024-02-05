@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn-jobs-app-with-expo-router",
-    "slug": "rn-jobs-app-with-expo-router",
+    "name": "rn-jobs-app",
+    "slug": "rn-jobs-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
