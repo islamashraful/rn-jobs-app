@@ -41,7 +41,7 @@ const Popularjobs = () => {
         {popularJobsApi.loading ? (
           <ActivityIndicator size="large" color={COLORS.primary} />
         ) : popularJobsApi.error ? (
-          <Text>Something went wrong!</Text>
+          <Text>{popularJobsApi.error}</Text>
         ) : (
           <FlatList
             data={popularJobsApi.data}

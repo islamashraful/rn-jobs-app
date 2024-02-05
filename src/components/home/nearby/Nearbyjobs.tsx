@@ -34,7 +34,7 @@ const Nearbyjobs = () => {
         {nearbyJobsApi.loading ? (
           <ActivityIndicator size="large" color={COLORS.primary} />
         ) : nearbyJobsApi.error ? (
-          <Text>Something went wrong!</Text>
+          <Text>{nearbyJobsApi.error}</Text>
         ) : (
           nearbyJobsApi.data?.map((item) => (
             <NearbyJobCard
