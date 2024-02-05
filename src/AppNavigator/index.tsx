@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppStackParamList } from "./types";
 import * as Screens from "@/screens";
-import { COLORS, icons, images } from "@/constants";
+import { icons, images } from "@/constants";
 import { ScreenHeaderBtn } from "@/components";
 import { navigationOptions } from "./navigationOptions";
 
