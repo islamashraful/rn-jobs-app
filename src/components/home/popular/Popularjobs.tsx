@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,21 +10,23 @@ import {
 import styles from "./popularjobs.style";
 import { COLORS, SIZES } from "@/constants";
 import PopularJobCard from "@/components/common/cards/popular/PopularJobCard";
-import useFetch from "@/hook/useFetch";
 import { useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { AppStackParamList } from "App";
+import jobsApi from "@/api/jobs";
+import useApi from "@/hook/useApi";
+import { Job } from "@/models/jobs";
 
 const Popularjobs = () => {
-  const { jobs, isLoading, error } = useFetch("search", {
-    query: "Python developer in Texas, USA",
-    page: "1",
-    num_pages: "1",
-  });
+  const popularJobsApi = useApi<Job[]>(jobsApi.popular);
   const [selectedJob, setSelectedJob] = useState("");
 
   const { navigate } =
     useNavigation<StackScreenProps<AppStackParamList, "Home">["navigation"]>();
+
+  useEffect(() => {
+    popularJobsApi.request();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -36,13 +38,13 @@ const Popularjobs = () => {
       </View>
 
       <View style={styles.cardsContainer}>
-        {isLoading ? (
+        {popularJobsApi.loading ? (
           <ActivityIndicator size="large" color={COLORS.primary} />
-        ) : error ? (
+        ) : popularJobsApi.error ? (
           <Text>Something went wrong!</Text>
         ) : (
           <FlatList
-            data={jobs}
+            data={popularJobsApi.data}
             renderItem={({ item }) => (
               <PopularJobCard
                 selectedJob={selectedJob}

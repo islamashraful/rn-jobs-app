@@ -1,7 +1,6 @@
-import { useRoute } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { AppStackParamList } from "App";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -12,24 +11,29 @@ import {
 } from "react-native";
 import { Company, JobAbout, JobFooter, JobTabs, Specifics } from "@/components";
 import { COLORS, SIZES } from "@/constants";
-import useJobDetails from "@/hook/useJobDetails";
+import useApi from "@/hook/useApi";
+import { JobDetails as IJobDetails } from "@/models/jobs";
+import jobsApi from "@/api/jobs";
 
 const tabs = ["About", "Qualifications", "Responsibilities"];
 
 const JobDetails = ({
-  navigation,
   route,
 }: StackScreenProps<AppStackParamList, "JobDetails">) => {
-  const { jobs, isLoading, error, refetch } = useJobDetails({
-    job_id: route.params.jobId,
-  });
+  const jobDetailsApi = useApi<IJobDetails[]>(
+    jobsApi.details(route.params.jobId)
+  );
 
   const [refreshing, setRefershing] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
+  useEffect(() => {
+    jobDetailsApi.request();
+  }, []);
+
   const onRefresh = useCallback(() => {
     setRefershing(true);
-    refetch();
+    jobDetailsApi.request();
     setRefershing(false);
   }, []);
 
@@ -39,20 +43,30 @@ const JobDetails = ({
         return (
           <Specifics
             title="Qualifications"
-            points={jobs[0]?.job_highlights?.Qualifications ?? ["N/A"]}
+            points={
+              jobDetailsApi.data?.[0]?.job_highlights?.Qualifications ?? ["N/A"]
+            }
           />
         );
 
       case "About":
         return (
-          <JobAbout info={jobs[0]?.job_description ?? "No data provided"} />
+          <JobAbout
+            info={
+              jobDetailsApi.data?.[0]?.job_description ?? "No data provided"
+            }
+          />
         );
 
       case "Responsibilities":
         return (
           <Specifics
             title="Responsibilities"
-            points={jobs[0].job_highlights?.Responsibilities ?? ["N/A"]}
+            points={
+              jobDetailsApi.data?.[0].job_highlights?.Responsibilities ?? [
+                "N/A",
+              ]
+            }
           />
         );
 
@@ -69,19 +83,19 @@ const JobDetails = ({
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        {isLoading ? (
+        {jobDetailsApi.loading ? (
           <ActivityIndicator size="large" color={COLORS.primary} />
-        ) : error ? (
+        ) : jobDetailsApi.error ? (
           <Text>Something went wrong!</Text>
-        ) : jobs.length === 0 ? (
+        ) : !jobDetailsApi.data ? (
           <Text>No Data</Text>
         ) : (
           <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
             <Company
-              companyLogo={jobs[0].employer_logo}
-              jobTitle={jobs[0].job_title}
-              companyName={jobs[0].employer_name}
-              location={jobs[0].job_country}
+              companyLogo={jobDetailsApi.data[0].employer_logo}
+              jobTitle={jobDetailsApi.data[0].job_title}
+              companyName={jobDetailsApi.data[0].employer_name}
+              location={jobDetailsApi.data[0].job_country}
             />
             <JobTabs
               tabs={tabs}
@@ -95,7 +109,7 @@ const JobDetails = ({
       </ScrollView>
       <JobFooter
         url={
-          jobs?.[0]?.job_google_link ||
+          jobDetailsApi.data?.[0]?.job_google_link ||
           "https://careers.google.com/jobs/results/"
         }
       />

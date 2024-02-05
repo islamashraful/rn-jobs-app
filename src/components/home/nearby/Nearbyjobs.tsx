@@ -1,23 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Pressable, ActivityIndicator } from "react-native";
 
 import styles from "./nearbyjobs.style";
 import { COLORS } from "@/constants";
 import NearbyJobCard from "@/components/common/cards/nearby/NearbyJobCard";
-import useFetch from "@/hook/useFetch";
 import { StackScreenProps } from "@react-navigation/stack";
 import { AppStackParamList } from "App";
 import { useNavigation } from "@react-navigation/native";
+import useApi from "@/hook/useApi";
+import { Job } from "@/models/jobs";
+import jobsApi from "@/api/jobs";
 
 const Nearbyjobs = () => {
-  const { jobs, isLoading, error } = useFetch("search", {
-    query: "Python developer in Texas, USA",
-    page: "1",
-    num_pages: "1",
-  });
+  const nearbyJobsApi = useApi<Job[]>(jobsApi.nearby);
 
   const { navigate } =
     useNavigation<StackScreenProps<AppStackParamList, "Home">["navigation"]>();
+
+  useEffect(() => {
+    nearbyJobsApi.request();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -29,12 +31,12 @@ const Nearbyjobs = () => {
       </View>
 
       <View style={styles.cardsContainer}>
-        {isLoading ? (
+        {nearbyJobsApi.loading ? (
           <ActivityIndicator size="large" color={COLORS.primary} />
-        ) : error ? (
+        ) : nearbyJobsApi.error ? (
           <Text>Something went wrong!</Text>
         ) : (
-          jobs?.map((item) => (
+          nearbyJobsApi.data?.map((item) => (
             <NearbyJobCard
               key={`nearby-${item.job_id}-${item.job_employment_type}`}
               jobId={item.job_id}
