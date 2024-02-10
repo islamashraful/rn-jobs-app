@@ -34,7 +34,7 @@ cd rn-jobs-app
 
 **Installation**
 
-Install the project dependencies using npm:
+Install the project dependencies using yarn:
 
 ```bash
 yarn
